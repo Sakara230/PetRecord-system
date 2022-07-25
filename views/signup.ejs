@@ -6,8 +6,11 @@
   </head>
   <body>
     <%- include ("partials/nav") %>
-    <main style="padding: 3rem">
+    
+    <main style="padding: 3rem" class="col-lg-6">
       
+      <h1>註冊帳戶</h1>
+      <br/>
       <form action="/auth/signup" method="POST">
         <%- include ("partials/message")  %> 
         <div class="form-group">
