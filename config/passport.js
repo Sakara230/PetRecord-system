@@ -3,6 +3,7 @@ const GoogleStrategy = require("passport-google-oauth20");
 const User = require("../models/user-model");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
+const FacebookStrategy = require("passport-facebook");
 
 passport.serializeUser((user , done) => {
     console.log("serializing user now.");
@@ -67,3 +68,30 @@ passport.use(new GoogleStrategy({
     });
 
 }));
+
+//  設定Facebook登入策略
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "/auth/facebook/redirect"
+  },
+  function(accessToken, refreshToken, profile, done) {
+   console.log(profile);
+   User.findOne({facebookID:profile.id}).then((foundUser) => {
+    if(foundUser) {
+        console.log("user already exist.");
+        done(null , foundUser);
+    }else{
+        new User({
+            name:profile.displayName,
+            facebookID:profile.id,
+            
+            
+        }).save().then((newUser) => {
+            console.log("new user created!");
+            done(null , newUser);
+        });
+    }
+});
+  }
+));

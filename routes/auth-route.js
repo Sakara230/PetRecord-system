@@ -52,6 +52,7 @@ router.post("/signup" ,async (req , res) => {
 
 });
 
+//  Google登入
 router.get("/google" , passport.authenticate("google" , {
     scope: ["profile", "email"],
     prompt: "select_account",
@@ -66,5 +67,22 @@ router.get("/google/redirect" , passport.authenticate("google") , (req , res) =>
         res.redirect("/profile");
     }
 });
+
+//  facebook登入
+router.get("/facebook" , passport.authenticate("facebook"));
+
+router.get('/facebook/redirect',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    if(req.session.returnTo) {
+        let newPath = req.session.returnTo;
+        req.session.returnTo = "";
+        res.redirect(newPath);
+    }else {
+        res.redirect("/profile");
+    }
+  }
+);
 
 module.exports = router;

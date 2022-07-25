@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     name:{
         type:String,
         required: true,
-        minLength:6,
+        minLength:2,
         maxLength:255,
     },
 
@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         maxLength:1024,
         minLength:6,
+    },
+
+    facebookID: {
+        type:String,
     },
 });
 
