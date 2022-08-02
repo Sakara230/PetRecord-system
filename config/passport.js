@@ -75,23 +75,22 @@ passport.use(new FacebookStrategy({
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "/auth/facebook/redirect"
   },
-  function(accessToken, refreshToken, profile, done) {
-   console.log(profile);
-   User.findOne({facebookID:profile.id}).then((foundUser) => {
-    if(foundUser) {
-        console.log("user already exist.");
-        done(null , foundUser);
-    }else{
-        new User({
-            name:profile.displayName,
-            facebookID:profile.id,
-            
-            
-        }).save().then((newUser) => {
-            console.log("new user created!");
-            done(null , newUser);
-        });
-    }
-});
-  }
-));
+function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    User.findOne({facebookID:profile.id}).then((foundUser) => {
+        if(foundUser) {
+            console.log("user already exist.");
+            done(null , foundUser);
+        }else{
+            new User({
+                name:profile.displayName,
+                facebookID:profile.id,
+                
+                
+            }).save().then((newUser) => {
+                console.log("new user created!");
+                done(null , newUser);
+            });
+        }
+    });
+}));

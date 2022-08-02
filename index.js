@@ -9,6 +9,7 @@ require("./config/passport");
 const session = require("express-session");
 const passport = require('passport');
 const flash = require("connect-flash");
+const information = require("./routes/information-route");
 
 
 mongoose.connect(process.env.DB_CONNECT,
@@ -44,10 +45,18 @@ app.use((req , res , next) => {
 app.use("/auth", authRoute);
 app.use("/profile" , profileRoute);
 
-app.get("/" , (req ,res) => {
-    res.render("index" , {user:req.user});
-});
+// app.get("/" , (req ,res) => {
+//     res.render("index" , {user:req.user});
+// });
 
 app.listen(8080 , () => {
     console.log("sever running on port 8080.");
 });
+
+
+
+// routes
+
+app.use("/", information);
+app.use("/api/v1/information", information);
+
