@@ -16,7 +16,7 @@ const {
   
 // });
 
-express.static("./public");
+
 
 router.route("/form/all-info").get(getAllInformation).post(createInformation);
 

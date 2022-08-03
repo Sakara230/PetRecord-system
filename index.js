@@ -45,9 +45,9 @@ app.use((req , res , next) => {
 app.use("/auth", authRoute);
 app.use("/profile" , profileRoute);
 
-// app.get("/" , (req ,res) => {
-//     res.render("index" , {user:req.user});
-// });
+app.get("/" , (req ,res) => {
+    res.render("index" , {user:req.user});
+});
 
 app.listen(8080 , () => {
     console.log("sever running on port 8080.");
@@ -56,7 +56,7 @@ app.listen(8080 , () => {
 
 
 // routes
-
-app.use("/", information);
+app.use("/record/form" , express.static("./public"));
+// app.use("/", information);
 app.use("/api/v1/information", information);
 
