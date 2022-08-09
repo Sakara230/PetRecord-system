@@ -9,9 +9,10 @@
     <title>寵物醫院</title>
 </head>
 <body>
-  <input id="petID" type="text" value="62e0344b4d6a088d019c1134" />
+  <input id="petID" type="text" value="62f158acef8b6c7bfd89c9b7" />
   <button id="btn" type="button">搜尋</button>
-  <div id="list">
+  <div id="info-list">
+    <h2>基本資料</h2>
     <div>寵物名:</div>
     <div>種類:</div>
     <div>品種:</div>
@@ -26,6 +27,13 @@
     <div>重大疾病:</div>
     <div>備註:</div>
   </div>
+  <div id="case-list">
+    <h2>病歷紀錄</h2>
+    <div>紀錄時間:</div>
+    <div>主治醫生:</div>
+    <div>看診類別:</div>
+    <div>詳細說明:</div>
+  </div>
     <!-- axios -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
@@ -36,13 +44,19 @@
     <script>
         const btn = document.getElementById("btn");
         const searchID = document.getElementById("petID");
-        const list = document.getElementById("list");
+        const infoList = document.getElementById("info-list");
+        const caseList = document.getElementById("case-list");
 
         const getInfo = async (petID) => {
           try {
-            const response = await axios.get(`/api/v1/information/form/${petID}`);
-            console.log("complete");
-            list.innerHTML = `<div id="list">
+            const response = await axios.get(`/api/v1/information/${petID}`);
+
+            let nowTime = new Date()
+            let birthdayTime = new Date(response.data.info.birthday)
+            let age = Math.floor(((nowTime - birthdayTime) / (24 * 3600 * 1000))/365)     
+
+            infoList.innerHTML = `<div id="info-list">
+            <h2>基本資料</h2>
             <div>寵物名:${response.data.info.name}</div>
             <div>種類:${response.data.info.species}</div>
             <div>品種:${response.data.info.breed}</div>
@@ -50,7 +64,7 @@
             <div>電話:${response.data.info.phone}</div>
             <div>病歷號:${response.data.info._id}</div>
             <div>晶片號:${response.data.info.chip}</div>
-            <div>生日:${response.data.info.birthday}     年齡:</div>
+            <div>生日:${response.data.info.birthday}     年齡:${age}歲</div>
             <div>性別:${response.data.info.gender}     血型:${response.data.info.bloodType}</div>
             <div>結紮:${response.data.info.ligation}</div>
             <div>過敏:${response.data.info.allergy}</div>
@@ -62,9 +76,36 @@
           }
         };
 
+        const getCase = async (petID) =>{
+          try {
+            const response = await axios.get(`/api/v1/case/${petID}`);
+
+            if (response.data.illness.length === 0) {
+              caseList.innerHTML = `<div id="case-list">
+              <h2>病歷紀錄</h2>
+              <div>紀錄時間:無</div>
+              <div>主治醫生:無</div>
+              <div>看診類別:無</div>
+              <div>詳細說明:無</div>
+            </div>`
+              return
+            }
+
+            caseList.innerHTML = `<div id="case-list">
+            <h2>病歷紀錄</h2>
+            <div>紀錄時間:${response.data.illness[0].date}</div>
+            <div>主治醫生:${response.data.illness[0].doctor}</div>
+            <div>看診類別:${response.data.illness[0].type}</div>
+            <div>詳細說明:${response.data.illness[0].describe}</div>
+          </div>`
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
         btn.addEventListener("click", () => {
-          console.log("complete");
           getInfo(searchID.value);
+          getCase(searchID.value);
         });
     </script>
     

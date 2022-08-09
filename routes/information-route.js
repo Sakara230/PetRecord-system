@@ -9,19 +9,18 @@ const {
   deleteInformation,
 } = require("../controllers/information");
 
-
 // router.get("/form" , (req , res) => {
 //   res.sendFile('index.html',{root:"./public"});
 //   // res.get(getAllInformation);
-  
+
 // });
 
-
-
-router.route("/form/all-info").get(getAllInformation).post(createInformation);
+//router.route("/form/all-info").get(getAllInformation).post(createInformation);
+router.route("/").get(getAllInformation).post(createInformation);
 
 router
-  .route("/form/:id")
+  //.route("/form/:id")
+  .route("/:id")
   .get(getInformation)
   .patch(updateInformation)
   .delete(deleteInformation);
