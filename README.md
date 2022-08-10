@@ -1,4 +1,5 @@
 # PetRecord-system
+it's for pet health record system
 寵物病歷登入系統
 ##  node module: 
    看pakage.json裡面的dependencies
