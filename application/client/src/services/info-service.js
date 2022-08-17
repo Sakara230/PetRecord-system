@@ -17,6 +17,10 @@ class InfoService {
     patch(_id , name, species, breed , owner , phone , chip , birthday , gender , bloodType , ligation , allergy , majorDiseases , remark) {
         return axios.patch(API_URL + "/" + _id , {name, species, breed , owner , phone , chip , birthday , gender , bloodType , ligation , allergy , majorDiseases , remark});
     }
+
+    getAllInfo() {
+        return axios.get(API_URL + "/");
+    }
 }
 
 export default new InfoService();

@@ -2,6 +2,7 @@ import React , {useState} from 'react'
 import { MDBTable, MDBTableHead, MDBTableBody , MDBInputGroup,MDBBtn} from 'mdb-react-ui-kit';
 import infoService from '../services/info-service';
 import EditInfoComponent from './edit-info-component';
+import ListComponent from './list-component';
 
 
 const InfoComponent = () => {
@@ -107,6 +108,9 @@ const InfoComponent = () => {
                 </tr>
               </MDBTableBody>
             </MDBTable>
+          )}
+          {infoData == null && !editTime && (
+            <ListComponent infoData={infoData} setInfoData={setInfoData} />
           )}
     </div>
   )
