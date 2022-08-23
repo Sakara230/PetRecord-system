@@ -10,21 +10,23 @@ import {
   MDBBtn,
   MDBCollapse
 } from 'mdb-react-ui-kit';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function HomeComponent() {
   const [showBasic, setShowBasic] = useState(false);
+  const notify = () => toast("Wow so easy !");
 
   return (
     <header className='h-75'>
-      
-
       <div className='p-5 text-center bg-light h-50' >
         <h1 className='mt-4 mb-3'>寵物病歷登錄系統</h1>
         <h4 className='mb-3'>Lorem ipsum dolor sit amet.</h4>
-        <MDBBtn tag="a" outline size="lg">
+        <MDBBtn tag="a" outline size="lg" onClick={notify} >
           START
         </MDBBtn>
       </div>
+      <ToastContainer />
     </header>
   );
 }

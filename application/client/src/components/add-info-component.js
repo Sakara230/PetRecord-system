@@ -69,7 +69,6 @@ export default function AddInfoComponent() {
         infoService.create(name, species, breed , owner , phone , chip , birthday , gender , bloodType , ligation , allergy , majorDiseases , remark)
           .then(() => {
             window.alert("New Pet-Info has been created.");
-            navigate("/info");
           })
           .catch((error) => {
             console.log("create new info catching Error!");
@@ -129,7 +128,7 @@ export default function AddInfoComponent() {
             <MDBInput wrapperClass='mb-4' textarea name='allergy' onChange={inputAllergy}  label='過敏' />
             <MDBInput wrapperClass='mb-4' textarea name='majorDiseases' onChange={inputMajorDiseases}  label='重大疾病' />
             <MDBInput wrapperClass='mb-4' textarea name='remark' onChange={inputRemark}  label='備註' />
-            <MDBBtn className='mb-4 mt-2' onClick={postInfo} type='button' block>
+            <MDBBtn className='mb-4 mt-2' onClick={postInfo} type='button' href='/info' block>
                 送出
             </MDBBtn>
         </form>

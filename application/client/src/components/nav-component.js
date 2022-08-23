@@ -25,7 +25,7 @@ const NavComponent = (props) => {
 
   return (
     <nav >
-      <MDBNavbar expand='lg' dark bgColor='dark'>
+      <MDBNavbar expand='lg' dark bgColor='dark' position="fixed" >
         <MDBContainer fluid className='m-2'>
           <MDBNavbarBrand href='#'>Pet Record</MDBNavbarBrand>
           <MDBNavbarToggler
@@ -58,7 +58,7 @@ const NavComponent = (props) => {
 
               {currentUser && (
                 <MDBNavbarItem >
-                  <MDBNavbarLink href='/addRecord'>新增病歷</MDBNavbarLink>
+                  <MDBNavbarLink href='/add-info'>新增病歷</MDBNavbarLink>
                 </MDBNavbarItem>
               )}
 
