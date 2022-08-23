@@ -2,19 +2,14 @@ const mongoose = require("mongoose");
 
 //設定mongodb資料格式
 const CaseSchema = new mongoose.Schema({
-  petID: {
+  medicalNumber: {
     type: String,
     required: [true, "must provide ID"],
     trim: true,
   },
   date: {
     type: Date,
-    default: Date.now,
-    trim: true,
-  },
-  doctor: {
-    type: String,
-    required: [true, "must provide name"],
+    required: [true, "must provide Date"],
     trim: true,
   },
   type: {
@@ -26,6 +21,11 @@ const CaseSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: "None",
+  },
+  complete: {
+    type: Boolean,
+    trim: true,
+    default: false,
   },
 });
 

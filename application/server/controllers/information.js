@@ -19,6 +19,13 @@ const getInformation = asyncWrapper(async (req, res) => {
 
 //創建新病歷
 const createInformation = asyncWrapper(async (req, res) => {
+  const latest = await Information.findOne().sort({ $natural: -1 }).limit(1);
+  if (!latest) {
+    req.body.medicalNumber = "100000";
+  } else {
+    medicalNumber = Number(latest.medicalNumber);
+    req.body.medicalNumber = String((medicalNumber += 1));
+  }
   const info = await Information.create(req.body);
   res.status(201).json({ info });
 });

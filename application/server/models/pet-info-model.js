@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 //設定mongodb資料格式
 const InformationSchema = new mongoose.Schema({
+  medicalNumber: {
+    type: String,
+    trim: true,
+  },
   name: {
     type: String,
     required: [true, "must provide name"],
@@ -66,6 +70,7 @@ const InformationSchema = new mongoose.Schema({
     trim: true,
     default: "None",
   },
+  created_at: {},
 });
 
 module.exports = mongoose.model("Information", InformationSchema);

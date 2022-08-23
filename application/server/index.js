@@ -11,6 +11,7 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const cors = require("cors");
 const information = require("./routes/information-route");
+const recordRoute = require("./routes/record-route");
 const caseRoute = require("./routes/case-route");
 require("./config/passport-jwt")(passport);
 
@@ -62,4 +63,5 @@ app.get("/", (req, res) => {
 // app.use("/record/form" , express.static("./public"));
 // app.use("/", information);
 app.use("/api/info", information);
+app.use("/api/record", recordRoute);
 app.use("/api/case", caseRoute);
